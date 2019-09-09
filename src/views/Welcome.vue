@@ -5,7 +5,7 @@
       <router-link :to="{name: 'tournament'}">Enter Tournament</router-link>
     </div>
     <div>
-      <router-link to="/about">About</router-link>|
+      <router-link to="/about">About</router-link>
     </div>
   </div>
 </template>

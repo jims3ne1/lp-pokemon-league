@@ -1,12 +1,24 @@
 <template>
   <div>
     <h1>Tournament</h1>
+    <PokemonLineUp></PokemonLineUp>
+    <PokemonDetail></PokemonDetail>
+    <PokemonList></PokemonList>
   </div>
 </template>
 
 <script>
+import PokemonLineUp from "../components/PokemonLineUp";
+import PokemonDetail from "../components/PokemonDetail";
+import PokemonList from "../components/PokemonList";
+
 export default {
-  name: "tournament"
+  name: "tournament",
+  components: {
+    PokemonLineUp,
+    PokemonDetail,
+    PokemonList
+  }
 };
 </script>
 
