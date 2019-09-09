@@ -6,7 +6,11 @@
       <p>{{ pokemon.name}}</p>
       <p>{{ pokemon.url}}</p>
       <p v-if="description">Description: {{ description}}</p>
-      <p>Types: {{ types }}</p>
+      <p>Types: {{ formattedStats.types }}</p>
+      <p>Abilities: {{ formattedStats.abilities }}</p>
+      <p>Height: {{ formattedStats.height }}</p>
+      <p>Weight: {{ formattedStats.weight }}</p>
+      <p>BaseXP: {{ formattedStats.base_experience}}</p>
     </div>
     <div v-else>
       <p>Select pokemon from line-up</p>
@@ -27,15 +31,26 @@ export default {
     };
   },
   computed: {
-    types: function() {
-      let pokemonTypes = [];
+    formattedStats: function() {
+      let formattedStats = {
+        types: [],
+        height: "not available",
+        weight: "not available",
+        base_experience: "",
+        abilities: []
+      };
 
       if (this.stats) {
-        console.log(this.stats.types);
-        pokemonTypes = this.stats.types.map(type => type.type.name);
+        formattedStats.types = this.stats.types.map(type => type.type.name);
+        formattedStats.abilities = this.stats.abilities.map(
+          ability => ability.ability.name
+        );
+        formattedStats.base_experience = this.stats.base_experience;
+        formattedStats.height = `${this.stats.height / 10.0} m`;
+        formattedStats.weight = `${this.stats.weight / 10.0} kg`;
       }
 
-      return pokemonTypes;
+      return formattedStats;
     }
   },
   methods: {
