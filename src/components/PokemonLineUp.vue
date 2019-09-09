@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h2 class="has-text-weight-semibold">Pokemon Line Up</h2>
+    <h2 class="has-text-weight-semibold">
+      Pokemon Line Up
+      <span>{{ formattedCount }}/6</span>
+    </h2>
+
     <div class="pokemon-line-up">
       <div v-bind:key="pokemon.name" v-for="pokemon in pokemons">
         <PokemonLineUpItem
@@ -18,10 +22,19 @@ import PokemonLineUpItem from "./PokemonLineUpItem";
 
 export default {
   name: "PokemonLineUp",
+  computed: {
+    formattedCount: function() {
+      let count = 0;
+      if (this.pokemons) {
+        count = this.pokemons.length;
+      }
+
+      return count;
+    }
+  },
   components: {
     PokemonLineUpItem
   },
-  computed: {},
   props: ["pokemons"]
 };
 </script>

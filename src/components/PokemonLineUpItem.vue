@@ -46,7 +46,7 @@ export default {
 }
 
 .item {
-  width: 200px;
+  width: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
