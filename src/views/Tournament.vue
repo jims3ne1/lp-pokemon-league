@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Tournament</h1>
-    <PokemonLineUp v-bind:pokemons="pokemon_lineup"></PokemonLineUp>
-    <PokemonDetail></PokemonDetail>
+    <PokemonLineUp v-bind:pokemons="pokemon_lineup" v-on:get-details="getDetails"></PokemonLineUp>
+    <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
     <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
   </div>
 </template>
@@ -35,6 +35,10 @@ export default {
 
     addToLineUp(pokemon) {
       this.pokemon_lineup = [...this.pokemon_lineup, pokemon];
+    },
+
+    getDetails(pokemon) {
+      this.pokemon_detail = { ...pokemon };
     }
   },
   created() {

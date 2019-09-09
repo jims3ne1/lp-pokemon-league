@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button>{{ pokemon.name }}</button>
+    <button @click="$emit('get-details', pokemon)">{{ pokemon.name }}</button>
   </div>
 </template>
 
