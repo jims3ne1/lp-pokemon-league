@@ -3,7 +3,7 @@
     <h1>Tournament</h1>
     <PokemonLineUp></PokemonLineUp>
     <PokemonDetail></PokemonDetail>
-    <PokemonList></PokemonList>
+    <PokemonList v-bind:pokemons="pokemons"></PokemonList>
   </div>
 </template>
 
@@ -12,12 +12,29 @@ import PokemonLineUp from "../components/PokemonLineUp";
 import PokemonDetail from "../components/PokemonDetail";
 import PokemonList from "../components/PokemonList";
 
+import pokemons from "../placeholder/json/pokemons";
+
 export default {
   name: "tournament",
   components: {
     PokemonLineUp,
     PokemonDetail,
     PokemonList
+  },
+  data() {
+    return {
+      pokemons: [],
+      pokemon_lineup: [],
+      pokemon_detail: {}
+    };
+  },
+  methods: {
+    getPokemons() {
+      this.pokemons = pokemons.results;
+    }
+  },
+  created() {
+    this.getPokemons();
   }
 };
 </script>
