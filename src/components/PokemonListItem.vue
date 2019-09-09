@@ -1,7 +1,7 @@
 <template>
   <div class="item box" @click="$emit('add-to-lineup', pokemon)">
-    <span>
-      <img v-bind:src="image" width="96" />
+    <span class="has-text-centered">
+      <img v-bind:src="image" width="50" />
     </span>
 
     <small class="has-text-centered has-text-weight-semibold">@{{pokemon.name}}</small>
@@ -29,9 +29,14 @@ export default {
   min-width: 150px;
 } */
 
+.box:not(:last-child) {
+  margin-bottom: 7px;
+}
 .item {
+  width: 110px;
   display: flex;
   flex-direction: column;
+  padding: 10px 0 10px 0;
 }
 
 .item:hover {

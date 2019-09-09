@@ -5,7 +5,7 @@ const instance = axios.create({
 });
 
 async function getPokemons() {
-    const { data } = await instance.get("/pokemon?limit=1000")
+    const { data } = await instance.get("/pokemon?limit=100")
     console.log('pokeAPI: getPokemons')
     return data.results
 }

@@ -7,17 +7,19 @@
           <p class="subtitle">If you're confuse, just follow your pokeheart ~.~</p>
         </div>
 
-        <div class="columns">
-          <div class="column is-two-thirds">
-            <PokemonLineUp
-              v-bind:pokemons="pokemon_lineup"
-              v-on:get-details="getDetails"
-              v-on:remove-from-lineup="removeFromLineUp"
-            />
-            <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
-          </div>
-          <div class="column">
-            <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
+        <div class="wrapper">
+          <div class="columns">
+            <div class="column is-two-thirds">
+              <PokemonLineUp
+                v-bind:pokemons="pokemon_lineup"
+                v-on:get-details="getDetails"
+                v-on:remove-from-lineup="removeFromLineUp"
+              />
+              <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
+            </div>
+            <div class="column">
+              <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
+            </div>
           </div>
         </div>
       </div>
@@ -88,8 +90,10 @@ export default {
 </script>
 
 <style>
+.wrapper {
+  padding-top: 50px;
+}
 .columns {
   margin-top: 50px;
-  border: 1px solid red;
 }
 </style>
