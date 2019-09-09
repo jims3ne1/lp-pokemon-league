@@ -129,6 +129,7 @@ export default {
             image_url: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.getIdFromUrl(
               evoData.species.url
             )}.png`,
+            url: evoData.species.url,
             species_name: evoData.species.name,
             min_level: !evoDetails ? 1 : evoDetails.min_level,
             trigger_name: !evoDetails ? null : evoDetails.trigger.name,
@@ -138,6 +139,8 @@ export default {
           evoData = evoData["evolves_to"][0];
         } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
       }
+
+      console.log(formattedEvolution);
 
       return formattedEvolution;
     }
@@ -173,8 +176,12 @@ export default {
 
     async getPokemonEvolution(id) {
       try {
-        const evolution = await pokeApi.getPokemonEvolution(id);
-        this.evolution = evolution;
+        const species = await pokeApi.getPokemonSpecies(id);
+        console.log("getPokemonEvolution", species.evolution_chain.url);
+        const evolution_chain = species.evolution_chain;
+        const evo_chain_id = this.getIdFromUrl(evolution_chain.url);
+        console.log("getPokemonEvolutionID", evo_chain_id);
+        this.evolution = await pokeApi.getPokemonEvolution(evo_chain_id);
       } catch (err) {
         console.log(err);
       }

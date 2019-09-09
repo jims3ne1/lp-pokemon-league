@@ -3,8 +3,12 @@
     <div class="hero-body">
       <div class="container">
         <div class="has-text-centered">
-          <h1 class="title">Choose your pokemons!</h1>
-          <p class="subtitle">If you're confuse, just follow your pokeheart ~.~</p>
+          <img src="../assets/ash.png" width="50" />
+
+          <h1 class="title">You're fight is next!</h1>
+          <p
+            class="subtitle"
+          >Choose your pokemon line up, if you'll get confused, just follow your poke-heart ~.~</p>
         </div>
 
         <div class="wrapper">
@@ -74,7 +78,7 @@ export default {
           )
         );
       } else {
-        this.pokemon_lineup = [pokemon, ...this.pokemon_lineup];
+        this.pokemon_lineup = [...this.pokemon_lineup, pokemon];
         this.getDetails(pokemon);
       }
     },
@@ -85,7 +89,13 @@ export default {
       );
 
       if (this.pokemon_detail && this.pokemon_detail.name == pokemon.name) {
-        this.pokemon_detail = null;
+        if (this.pokemon_lineup) {
+          this.pokemon_detail = this.pokemon_lineup[
+            this.pokemon_lineup.length - 1
+          ];
+        } else {
+          this.pokemon_detail = null;
+        }
       }
     }
   },

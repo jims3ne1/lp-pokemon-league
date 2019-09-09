@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>Welcome</h1>
-    <div>
-      <router-link :to="{name: 'tournament'}">Enter Tournament</router-link>
-    </div>
-    <div>
-      <router-link to="/about">About</router-link>
-    </div>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">Hey you! Welcome to the Pokemon Tournament!</h1>
+          <h2 class="subtitle">Fullheight subtitle</h2>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

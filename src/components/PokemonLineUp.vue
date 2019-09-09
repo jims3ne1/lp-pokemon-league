@@ -48,13 +48,11 @@ export default {
   max-height: 600px;
   overflow: scroll;
   padding: 20px 20px;
-  margin-top: 14px;
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: row;
-  /* flex-wrap: wrap; */
   justify-content: left;
   align-items: center;
-  /* box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2); */
+  border: 1px solid #eee;
 }
 </style>
