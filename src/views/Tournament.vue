@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <h1>Tournament</h1>
-    <PokemonLineUp
-      v-bind:pokemons="pokemon_lineup"
-      v-on:get-details="getDetails"
-      v-on:remove-from-lineup="removeFromLineUp"
-    />
-    <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
-    <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
-  </div>
+  <section class="hero is-medium is-primary is-bold is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">Tournament</h1>
+        <p class="subtitle">It's time to choose your line up</p>
+
+        <PokemonLineUp
+          v-bind:pokemons="pokemon_lineup"
+          v-on:get-details="getDetails"
+          v-on:remove-from-lineup="removeFromLineUp"
+        />
+        <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
+        <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -74,12 +80,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
