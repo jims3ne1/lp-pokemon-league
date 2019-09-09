@@ -22,4 +22,10 @@ async function getPokemonStats(id) {
     return data
 }
 
-export default { getPokemons, getPokemonSpecies, getPokemonStats }
+async function getPokemonEvolution(id) {
+    const { data } = await instance.get(`/evolution-chain/${id}`)
+    console.log('pokeAPI: evolution-chain', id)
+    return data
+}
+
+export default { getPokemons, getPokemonSpecies, getPokemonStats, getPokemonEvolution }

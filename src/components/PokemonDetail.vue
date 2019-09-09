@@ -11,6 +11,8 @@
       <p>Height: {{ formattedStats.height }}</p>
       <p>Weight: {{ formattedStats.weight }}</p>
       <p>BaseXP: {{ formattedStats.base_experience}}</p>
+      <p>Evochain: {{ formattedEvolution }}</p>
+      <p>Evochain: {{ evolution }}</p>
     </div>
     <div v-else>
       <p>Select pokemon from line-up</p>
@@ -27,7 +29,8 @@ export default {
   data() {
     return {
       description: null,
-      stats: null
+      stats: null,
+      evolution: null
     };
   },
   computed: {
@@ -51,42 +54,69 @@ export default {
       }
 
       return formattedStats;
+    },
+    formattedEvolution: function() {
+      let formattedEvolution = [];
+
+      if (this.evolution) {
+        let evoData = this.evolution.chain;
+
+        do {
+          let evoDetails = evoData["evolution_details"][0];
+
+          formattedEvolution.push({
+            species_name: evoData.species.name,
+            min_level: !evoDetails ? 1 : evoDetails.min_level,
+            trigger_name: !evoDetails ? null : evoDetails.trigger.name,
+            item: !evoDetails ? null : evoDetails.item
+          });
+
+          evoData = evoData["evolves_to"][0];
+        } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
+      }
+
+      return formattedEvolution;
     }
   },
   methods: {
-    async getPokemonSpecies() {
-      if (this.pokemon.hasOwnProperty("url")) {
-        try {
-          const url = this.pokemon.url.toString();
-          const rgx_result = url.match(/\d/g);
-          const id = rgx_result[1];
-          const species = await pokeApi.getPokemonSpecies(id);
-          this.description = species["flavor_text_entries"][1]["flavor_text"];
-        } catch (err) {
-          console.log(err);
-        }
+    async getPokemonSpecies(id) {
+      try {
+        const species = await pokeApi.getPokemonSpecies(id);
+        this.description = species["flavor_text_entries"][1]["flavor_text"];
+      } catch (err) {
+        console.log(err);
       }
     },
 
-    async getPokemonStats() {
-      if (this.pokemon.hasOwnProperty("url")) {
-        try {
-          const url = this.pokemon.url.toString();
-          const rgx_result = url.match(/\d/g);
-          const id = rgx_result[1];
-          const stats = await pokeApi.getPokemonStats(id);
-          console.log(stats);
-          this.stats = stats;
-        } catch (err) {
-          console.log(err);
-        }
+    async getPokemonStats(id) {
+      try {
+        const stats = await pokeApi.getPokemonStats(id);
+        this.stats = stats;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async getPokemonEvolution(id) {
+      try {
+        const evolution = await pokeApi.getPokemonEvolution(id);
+        this.evolution = evolution;
+      } catch (err) {
+        console.log(err);
       }
     }
   },
   watch: {
     pokemon: function() {
-      this.getPokemonSpecies();
-      this.getPokemonStats();
+      if (this.pokemon.hasOwnProperty("url")) {
+        const url = this.pokemon.url.toString();
+        const rgx_result = url.match(/\d+/g);
+        const id = rgx_result[1];
+
+        this.getPokemonSpecies(id);
+        this.getPokemonStats(id);
+        this.getPokemonEvolution(id);
+      }
     }
   }
 };
