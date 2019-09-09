@@ -3,7 +3,7 @@
     <div class="has-text-centered">
       <div v-if="isCompleted">
         <img src="../assets/ash-fight.png" width="80" />
-        <h1 class="title">You're line up is now complete!</h1>
+        <h1 class="title">You're line-up is now complete!</h1>
         <p class="subtitle">Just hit go, to proceed to face your opponent.</p>
         <a
           href="https://github.com/jimbocortes/lp-pokemon-league"
@@ -80,7 +80,7 @@ export default {
     addToLineUp(pokemon) {
       if (this.pokemon_lineup && this.pokemon_lineup.length >= 6) {
         alert(
-          "You have completed your line up, you may remove some pokemons to add new ones."
+          "You have completed your line-up, you may remove some pokemons to add new ones."
         );
         return;
       }
@@ -88,7 +88,7 @@ export default {
       if (found) {
         console.log(
           alert(
-            `${found.name} is already in the line up. Please select another pokemon.`
+            `${found.name} is already in the line-up. Please select another pokemon.`
           )
         );
       } else {
