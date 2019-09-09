@@ -1,12 +1,12 @@
 <template>
   <div>
-    <button @click="$emit('add-to-lineup', pokemon)">{{ pokemon.name }}</button>
+    <button>{{ pokemon.name }}</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "PokemonListItem",
+  name: "PokemonLineUpItem",
   props: ["pokemon"]
 };
 </script>
