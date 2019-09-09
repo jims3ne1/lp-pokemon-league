@@ -61,6 +61,10 @@ export default {
     },
 
     addToLineUp(pokemon) {
+      if (this.pokemon_lineup && this.pokemon_lineup.length >= 6) {
+        alert("You have completed your line up!");
+        return;
+      }
       const found = this.pokemon_lineup.find(item => item.name == pokemon.name);
       if (found) {
         console.log(
