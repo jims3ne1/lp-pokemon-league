@@ -15,7 +15,7 @@
         <h1 class="title">You're fight is next!</h1>
         <p
           class="subtitle"
-        >Choose your pokemon line up, if you'll get confused, just follow your poke-heart ~.~</p>
+        >Choose your pokemon line-up, if you'll get confused, just follow your poke-heart ~.~</p>
       </div>
     </div>
 
