@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1>Tournament</h1>
-    <PokemonLineUp v-bind:pokemons="pokemon_lineup" v-on:get-details="getDetails"></PokemonLineUp>
+    <PokemonLineUp
+      v-bind:pokemons="pokemon_lineup"
+      v-on:get-details="getDetails"
+      v-on:remove-from-lineup="removeFromLineUp"
+    />
     <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
     <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
   </div>
@@ -25,7 +29,7 @@ export default {
     return {
       pokemons: [],
       pokemon_lineup: [],
-      pokemon_detail: {}
+      pokemon_detail: null
     };
   },
   methods: {
@@ -33,12 +37,31 @@ export default {
       this.pokemons = pokemons.results;
     },
 
-    addToLineUp(pokemon) {
-      this.pokemon_lineup = [...this.pokemon_lineup, pokemon];
-    },
-
     getDetails(pokemon) {
       this.pokemon_detail = { ...pokemon };
+    },
+
+    addToLineUp(pokemon) {
+      const found = this.pokemon_lineup.find(item => item.name == pokemon.name);
+      if (found) {
+        console.log(
+          alert(
+            `${found.name} is already in the line up. Please select another pokemon.`
+          )
+        );
+      } else {
+        this.pokemon_lineup = [...this.pokemon_lineup, pokemon];
+      }
+    },
+
+    removeFromLineUp(pokemon) {
+      this.pokemon_lineup = this.pokemon_lineup.filter(
+        item => item.name != pokemon.name
+      );
+
+      if (this.pokemon_detail && this.pokemon_detail.name == pokemon.name) {
+        this.pokemon_detail = null;
+      }
     }
   },
   created() {

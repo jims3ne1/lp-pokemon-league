@@ -1,8 +1,13 @@
 <template>
   <div>
     <h2>Pokemon Detail</h2>
-    <p>{{ pokemon.name}}</p>
-    <p>{{ pokemon.url}}</p>
+    <div v-if="pokemon">
+      <p>{{ pokemon.name}}</p>
+      <p>{{ pokemon.url}}</p>
+    </div>
+    <div v-else>
+      <p>Select pokemon from line-up</p>
+    </div>
   </div>
 </template>
 

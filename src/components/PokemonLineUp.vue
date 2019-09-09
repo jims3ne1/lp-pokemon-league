@@ -2,7 +2,11 @@
   <div>
     <h2>Pokemon Line Up</h2>
     <div v-bind:key="pokemon.name" v-for="pokemon in pokemons">
-      <PokemonLineUpItem v-bind:pokemon="pokemon" v-on:get-details="$emit('get-details', pokemon)" />
+      <PokemonLineUpItem
+        v-bind:pokemon="pokemon"
+        v-on:get-details="$emit('get-details', pokemon)"
+        v-on:remove-from-lineup="$emit('remove-from-lineup', pokemon)"
+      />
     </div>
   </div>
 </template>
