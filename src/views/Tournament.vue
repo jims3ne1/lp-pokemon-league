@@ -15,7 +15,6 @@
 import PokemonLineUp from "../components/PokemonLineUp";
 import PokemonDetail from "../components/PokemonDetail";
 import PokemonList from "../components/PokemonList";
-import axios from "axios";
 import pokeApi from "../services/pokeApi.js";
 
 export default {
