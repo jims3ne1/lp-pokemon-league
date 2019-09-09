@@ -5,10 +5,10 @@
         <img src="../assets/ash-fight.png" width="80" />
         <h1 class="title">You're line up is now complete!</h1>
         <p class="subtitle">Just hit go, to proceed to face your opponent.</p>
-        <button
+        <a
           href="https://github.com/jimbocortes/lp-pokemon-league"
           class="button is-warning is-large"
-        >I'm ready to fight</button>
+        >I'm ready to fight</a>
       </div>
       <div v-else>
         <img src="../assets/ash.png" width="100" />
