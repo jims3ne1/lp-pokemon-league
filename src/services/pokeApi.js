@@ -1,5 +1,4 @@
 import axios from "axios";
-import { async } from "q";
 
 const instance = axios.create({
     baseURL: "https://pokeapi.co/api/v2"
@@ -7,12 +6,20 @@ const instance = axios.create({
 
 async function getPokemons() {
     const { data } = await instance.get("/pokemon?limit=1000")
+    console.log('pokeAPI: getPokemons')
     return data.results
 }
 
 async function getPokemonSpecies(id) {
     const { data } = await instance.get(`/pokemon-species/${id}`)
+    console.log('pokeAPI: getPokemonSpecies', id)
     return data
 }
 
-export default { getPokemons, getPokemonSpecies }
+async function getPokemonStats(id) {
+    const { data } = await instance.get(`/pokemon/${id}`)
+    console.log('pokeAPI: getPokemonStats', id)
+    return data
+}
+
+export default { getPokemons, getPokemonSpecies, getPokemonStats }
