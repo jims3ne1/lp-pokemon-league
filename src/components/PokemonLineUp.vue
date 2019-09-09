@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pokemon-line-up">
     <h2>Pokemon Line Up</h2>
     <div v-bind:key="pokemon.name" v-for="pokemon in pokemons">
       <PokemonLineUpItem
@@ -24,4 +24,6 @@ export default {
 </script>
 
 <style>
+.pokemon-line-up {
+}
 </style>

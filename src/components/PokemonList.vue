@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <h2>Pokemon List</h2>
-    <div v-bind:key="pokemon.name" v-for="pokemon in pokemons">
-      <PokemonListItem
-        v-bind:pokemon="pokemon"
-        v-on:add-to-lineup="$emit('add-to-lineup', pokemon)"
-      />
-    </div>
-  </div>
+  <ul class="pokemon-list">
+    <PokemonListItem
+      v-bind:key="pokemon.name"
+      v-for="pokemon in pokemons"
+      v-bind:pokemon="pokemon"
+      v-on:add-to-lineup="$emit('add-to-lineup', pokemon)"
+    />
+  </ul>
 </template>
 
 <script>
@@ -22,5 +21,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.pokemon-list {
+  height: 500px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 5px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 </style>

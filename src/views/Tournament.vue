@@ -1,17 +1,25 @@
 <template>
-  <section class="hero is-medium is-primary is-bold is-fullheight">
+  <section class="hero is-medium is-bold is-fullheight">
     <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title">Tournament</h1>
-        <p class="subtitle">It's time to choose your line up</p>
+      <div class="container">
+        <div class="has-text-centered">
+          <h1 class="title">Choose your pokemons!</h1>
+          <p class="subtitle">If you're confuse, just follow your pokeheart ~.~</p>
+        </div>
 
-        <PokemonLineUp
-          v-bind:pokemons="pokemon_lineup"
-          v-on:get-details="getDetails"
-          v-on:remove-from-lineup="removeFromLineUp"
-        />
-        <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
-        <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <PokemonLineUp
+              v-bind:pokemons="pokemon_lineup"
+              v-on:get-details="getDetails"
+              v-on:remove-from-lineup="removeFromLineUp"
+            />
+            <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
+          </div>
+          <div class="column">
+            <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -80,4 +88,8 @@ export default {
 </script>
 
 <style>
+.columns {
+  margin-top: 50px;
+  border: 1px solid red;
+}
 </style>
