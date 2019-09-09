@@ -15,8 +15,11 @@
 import PokemonLineUp from "../components/PokemonLineUp";
 import PokemonDetail from "../components/PokemonDetail";
 import PokemonList from "../components/PokemonList";
+import axios from "axios";
 
-import pokemons from "../placeholder/json/pokemons";
+const pokeApi = axios.create({
+  baseURL: "https://pokeapi.co/api/v2"
+});
 
 export default {
   name: "tournament",
@@ -34,7 +37,10 @@ export default {
   },
   methods: {
     getPokemons() {
-      this.pokemons = pokemons.results;
+      pokeApi
+        .get("/pokemon?limit=1000")
+        .then(res => (this.pokemons = res.data.results))
+        .catch(e => console.log(e));
     },
 
     getDetails(pokemon) {
