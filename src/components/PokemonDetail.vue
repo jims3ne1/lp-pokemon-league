@@ -14,7 +14,10 @@
 <script>
 export default {
   name: "pokemon-detail",
-  props: ["pokemon"]
+  props: ["pokemon"],
+  beforeUpdate() {
+    console.log(`Update the details ${this.pokemon.name}`);
+  }
 };
 </script>
 
