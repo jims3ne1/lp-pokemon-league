@@ -1,6 +1,10 @@
 <template>
   <div class="item-wrapper">
-    <div class="item box" @click="$emit('get-details', pokemon)">
+    <div
+      class="item box"
+      v-bind:class="{selected: selectedPokemon.name == pokemon.name}"
+      @click="$emit('get-details', pokemon)"
+    >
       <span class="has-text-centered">
         <img v-bind:src="image" width="180" />
       </span>
@@ -18,7 +22,7 @@
 <script>
 export default {
   name: "PokemonLineUpItem",
-  props: ["pokemon"],
+  props: ["pokemon", "selectedPokemon"],
   computed: {
     image: function() {
       const url = this.pokemon.url.toString();
@@ -36,13 +40,17 @@ export default {
   margin-bottom: 13px;
 }
 
-.delete {
-  /* margin-top: -10px; */
+.selected {
+  border: 5px solid lightgreen;
 }
 
 .box:not(:last-child) {
   margin-bottom: 7px;
   margin-right: 7px;
+}
+
+.box {
+  border-radius: 0;
 }
 
 .item {

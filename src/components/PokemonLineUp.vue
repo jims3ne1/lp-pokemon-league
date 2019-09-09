@@ -5,14 +5,18 @@
       <span>{{ formattedCount }}/6</span>
     </h2>
 
-    <div class="pokemon-line-up">
+    <div v-if="formattedCount > 0" class="pokemon-line-up">
       <div v-bind:key="pokemon.name" v-for="pokemon in pokemons">
         <PokemonLineUpItem
+          :selectedPokemon="selectedPokemon"
           v-bind:pokemon="pokemon"
           v-on:get-details="$emit('get-details', pokemon)"
           v-on:remove-from-lineup="$emit('remove-from-lineup', pokemon)"
         />
       </div>
+    </div>
+    <div v-else class="pokemon-line-up">
+      <h1 class="subtitle">Your pokemon line up will appear here.</h1>
     </div>
   </div>
 </template>
@@ -35,7 +39,7 @@ export default {
   components: {
     PokemonLineUpItem
   },
-  props: ["pokemons"]
+  props: ["pokemons", "selectedPokemon"]
 };
 </script>
   

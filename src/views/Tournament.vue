@@ -11,6 +11,7 @@
           <div class="columns">
             <div class="column is-two-thirds">
               <PokemonLineUp
+                :selectedPokemon="pokemon_detail"
                 v-bind:pokemons="pokemon_lineup"
                 v-on:get-details="getDetails"
                 v-on:remove-from-lineup="removeFromLineUp"
@@ -73,7 +74,8 @@ export default {
           )
         );
       } else {
-        this.pokemon_lineup = [...this.pokemon_lineup, pokemon];
+        this.pokemon_lineup = [pokemon, ...this.pokemon_lineup];
+        this.getDetails(pokemon);
       }
     },
 
