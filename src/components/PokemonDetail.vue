@@ -1,22 +1,78 @@
 
 <template>
-  <div>
-    <h2>Pokemon Detail</h2>
+  <div class="section-wrapper">
     <div v-if="pokemon">
-      <p>{{ pokemon.name}}</p>
-      <p>{{ pokemon.url}}</p>
-      <p v-if="description">Description: {{ description}}</p>
-      <p>Types: {{ formattedStats.types }}</p>
-      <p>Abilities: {{ formattedStats.abilities }}</p>
-      <p>Height: {{ formattedStats.height }}</p>
-      <p>Weight: {{ formattedStats.weight }}</p>
-      <p>BaseXP: {{ formattedStats.base_experience}}</p>
-      <p>Evochain: {{ formattedEvolution }}</p>
-      <p>Evochain: {{ evolution }}</p>
+      <h1 class="has-text-weight-semibold title">
+        {{ formattedName }}
+        <b-tag class="tag" rounded v-bind:key="type" v-for="type in formattedStats.types">
+          {{ type }}
+          <br />
+        </b-tag>
+      </h1>
+
+      <p>{{ description}}</p>
+
+      <div class="columns">
+        <div class="column">
+          <div class="stats">
+            <h1 class="has-text-weight-semibold subtitle">Evolution</h1>
+            <div class="evolution-list">
+              <div
+                v-bind:key="evo.species_name"
+                v-for="evo in formattedEvolution"
+                class="evolution-item"
+              >
+                <div class="item box">
+                  <span class="has-text-centered">
+                    <img v-bind:src="evo.image_url" width="180" />
+                  </span>
+
+                  <small class="has-text-centered has-text-weight-semibold">@{{evo.species_name}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column is-one-third">
+          <div class="stats">
+            <p>
+              <strong>Height:</strong>
+              <br />
+              {{ formattedStats.height }}
+              <br />
+              <br />
+            </p>
+            <p>
+              <strong>Weight:</strong>
+              <br />
+              {{ formattedStats.weight }}
+              <br />
+              <br />
+            </p>
+            <p>
+              <strong>Base XP:</strong>
+              <br />
+              {{ formattedStats.base_experience }}
+              <br />
+              <br />
+            </p>
+            <div>
+              <strong>Abilities:</strong>
+              <br />
+              <b-tag
+                class="tag"
+                rounded
+                v-bind:key="ability"
+                v-for="ability in formattedStats.abilities"
+              >{{ ability }}</b-tag>
+              <br />
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div v-else>
-      <p>Select pokemon from line-up</p>
-    </div>
+    <div v-else></div>
   </div>
 </template>
 
@@ -34,6 +90,11 @@ export default {
     };
   },
   computed: {
+    formattedName: function() {
+      return (
+        this.pokemon.name.charAt(0).toUpperCase() + this.pokemon.name.slice(1)
+      );
+    },
     formattedStats: function() {
       let formattedStats = {
         types: [],
@@ -65,6 +126,9 @@ export default {
           let evoDetails = evoData["evolution_details"][0];
 
           formattedEvolution.push({
+            image_url: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.getIdFromUrl(
+              evoData.species.url
+            )}.png`,
             species_name: evoData.species.name,
             min_level: !evoDetails ? 1 : evoDetails.min_level,
             trigger_name: !evoDetails ? null : evoDetails.trigger.name,
@@ -79,10 +143,20 @@ export default {
     }
   },
   methods: {
+    getIdFromUrl(url) {
+      const rgx_result = url.match(/\d+/g);
+      const id = rgx_result[1];
+      return id;
+    },
+
     async getPokemonSpecies(id) {
       try {
         const species = await pokeApi.getPokemonSpecies(id);
-        this.description = species["flavor_text_entries"][1]["flavor_text"];
+        const en_descrition = species.flavor_text_entries.find(
+          flavor => flavor.language.name == "en"
+        );
+
+        this.description = en_descrition.flavor_text;
       } catch (err) {
         console.log(err);
       }
@@ -109,9 +183,7 @@ export default {
   watch: {
     pokemon: function() {
       if (this.pokemon.hasOwnProperty("url")) {
-        const url = this.pokemon.url.toString();
-        const rgx_result = url.match(/\d+/g);
-        const id = rgx_result[1];
+        const id = this.getIdFromUrl(this.pokemon.url);
 
         this.getPokemonSpecies(id);
         this.getPokemonStats(id);
@@ -122,5 +194,34 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.section-wrapper {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.stats {
+  margin-top: 20px;
+}
+
+.tag {
+  margin-right: 10px;
+}
+
+.item {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.evolution-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  /* align-items: center; */
+  /* box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2); */
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="item-wrapper">
+  <div class="section-wrapper">
     <div
       class="item box"
       v-bind:class="{selected: selectedPokemon.name == pokemon.name}"
@@ -36,12 +36,13 @@ export default {
 
 
 <style scoped>
-.item-wrapper {
+.section-wrapper {
   margin-bottom: 13px;
 }
 
 .selected {
-  border: 5px solid lightgreen;
+  border: none;
+  background-color: lightgreen;
 }
 
 .box:not(:last-child) {
