@@ -1,35 +1,41 @@
 <template>
-  <section class="hero is-medium is-bold is-fullheight">
-    <div class="hero-body">
-      <div class="container">
-        <div class="has-text-centered">
-          <img src="../assets/ash.png" width="50" />
+  <div class="container">
+    <div class="has-text-centered">
+      <div v-if="isCompleted">
+        <img src="../assets/ash-fight.png" width="80" />
+        <h1 class="title">You're line up is now complete!</h1>
+        <p class="subtitle">Just hit go, to proceed to face your opponent.</p>
+        <button
+          href="https://github.com/jimbocortes/lp-pokemon-league"
+          class="button is-warning is-large"
+        >I'm ready to fight</button>
+      </div>
+      <div v-else>
+        <img src="../assets/ash.png" width="100" />
+        <h1 class="title">You're fight is next!</h1>
+        <p
+          class="subtitle"
+        >Choose your pokemon line up, if you'll get confused, just follow your poke-heart ~.~</p>
+      </div>
+    </div>
 
-          <h1 class="title">You're fight is next!</h1>
-          <p
-            class="subtitle"
-          >Choose your pokemon line up, if you'll get confused, just follow your poke-heart ~.~</p>
+    <div class="wrapper">
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <PokemonLineUp
+            :selectedPokemon="pokemon_detail"
+            v-bind:pokemons="pokemon_lineup"
+            v-on:get-details="getDetails"
+            v-on:remove-from-lineup="removeFromLineUp"
+          />
+          <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
         </div>
-
-        <div class="wrapper">
-          <div class="columns">
-            <div class="column is-two-thirds">
-              <PokemonLineUp
-                :selectedPokemon="pokemon_detail"
-                v-bind:pokemons="pokemon_lineup"
-                v-on:get-details="getDetails"
-                v-on:remove-from-lineup="removeFromLineUp"
-              />
-              <PokemonDetail v-bind:pokemon="pokemon_detail"></PokemonDetail>
-            </div>
-            <div class="column">
-              <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
-            </div>
-          </div>
+        <div class="column">
+          <PokemonList v-bind:pokemons="pokemons" v-on:add-to-lineup="addToLineUp"></PokemonList>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -52,6 +58,12 @@ export default {
       pokemon_detail: null
     };
   },
+  computed: {
+    isCompleted: function() {
+      const compoleted = this.pokemon_lineup.length === 6 ? true : false;
+      return compoleted;
+    }
+  },
   methods: {
     async getPokemons() {
       try {
@@ -67,7 +79,9 @@ export default {
 
     addToLineUp(pokemon) {
       if (this.pokemon_lineup && this.pokemon_lineup.length >= 6) {
-        alert("You have completed your line up!");
+        alert(
+          "You have completed your line up, you may remove some pokemons to add new ones."
+        );
         return;
       }
       const found = this.pokemon_lineup.find(item => item.name == pokemon.name);
@@ -111,5 +125,9 @@ export default {
 }
 .columns {
   margin-top: 50px;
+}
+
+.container {
+  padding-top: 30px;
 }
 </style>
